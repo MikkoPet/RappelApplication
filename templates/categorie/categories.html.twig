@@ -9,7 +9,7 @@
 <a href="{{ path( 'categorie.add' ) }}">+ Ajouter une catégorie</a>
 <section>
 {% for categorie in categories %}
-<a href="{{path('show_categorie',{'id': categorie.id})}}">
+<a href="{{path('categorie',{'id': categorie.id})}}">
 {{ categorie.nom }}
 </a>
 {% endfor %}

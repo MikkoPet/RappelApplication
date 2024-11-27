@@ -24,7 +24,7 @@ class CategorieController extends AbstractController
         if ($form->isSubmitted()) {
             $entityManager->persist($categorie);
             $entityManager->flush();
-            return $this->redirectToRoute('all_categories');
+            return $this->redirectToRoute('categorie.all');
         }
 
         return $this->render('categorie/add.html.twig', [
@@ -32,7 +32,7 @@ class CategorieController extends AbstractController
         ]);
     }
 
-    #[Route('/categories', methods: ['GET'], name:'all_categories')]
+    #[Route('/categories', methods: ['GET'], name:'categorie.all')]
     public function showAllCategorie(EntityManagerInterface $entityManager): Response 
     {
         $categories = $entityManager->getRepository(categorie::class)->findAll();
@@ -45,7 +45,7 @@ class CategorieController extends AbstractController
         return $this->render('categorie/categories.html.twig', ['categories' => $categories]);
     }
 
-    #[Route('/categorie/{id}', methods: ['GET'], name: "show_categorie")]
+    #[Route('/categorie/{id}', methods: ['GET'], name: "categorie")]
     public function  show(EntityManagerInterface $entityManager, int $id): Response 
     {
         $categorie = $entityManager->getRepository(categorie::class)->find($id);
@@ -79,7 +79,7 @@ class CategorieController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $entityManager->flush();
-            return $this->redirectToRoute('all_categories');
+            return $this->redirectToRoute('categorie.all');
         }
 
         return $this->render('categorie/edit.html.twig', [
