@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Entity\Team;
+use App\Form\CategorieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,23 +14,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CategorieController extends AbstractController
 {
-    #[Route('/categorie', methods: ['POST'])]
+    #[Route('/categorie_add', methods: ['POST', 'GET'], name: "categorie.add")]
     public function createCategorie(Request  $request, EntityManagerInterface $entityManager): Response
     {
-        $data = json_decode(json: $request->getContent(), associative: true);
-
         $categorie = new Categorie();
-        $categorie->setNom(Nom: $data['nom'] ?? '');
-        $categorie->setDescription(Description: $data['description'] ?? '');
-        
-        $entityManager->persist($categorie);
-        $entityManager->flush();
 
-        return $this->render('categorie/create/added.html.twig', []);
-        // return $this->json(['id' => $categorie->getId(),
-        //                     'nom' => $categorie->getNom(),
-        //                     'description' => $categorie->getDescription() ],
-        //                     201);
+        $form = $this->createForm(CategorieType::class, $categorie);
+
+        if ($form->isSubmitted()) {
+            $entityManager->persist($categorie);
+            $entityManager->flush();
+            return $this->redirectToRoute('all_categories');
+        }
+
+        return $this->render('categorie/add.html.twig', [
+            'form' => $form
+        ]);
     }
 
     #[Route('/categories', methods: ['GET'], name:'all_categories')]
@@ -43,20 +43,12 @@ class CategorieController extends AbstractController
             );
         }
         return $this->render('categorie/categories.html.twig', ['categories' => $categories]);
-        // return $this->json(['categories' => array_map(callback:function($categorie): array {
-        //     return[
-        //         'id' => $categorie->getId(),
-        //         'nom' => $categorie->getNom(),
-        //         'description' => $categorie->getDescription()
-        //     ];
-        // }, array: $categories),
-        // 201]) ;
     }
 
-    #[Route('/categorie/{id}', methods: ['GET'])]
-    public function  show(EntityManagerInterface $entityManager, int $id): JsonResponse 
+    #[Route('/categorie/{id}', methods: ['GET'], name: "show_categorie")]
+    public function  show(EntityManagerInterface $entityManager, int $id): Response 
     {
-        $team = $entityManager->getRepository(categorie::class)->find($id);
+        $categorie = $entityManager->getRepository(categorie::class)->find($id);
 
         if(!$categorie) {
             throw $this->createNotFoundException(
@@ -64,37 +56,39 @@ class CategorieController extends AbstractController
             );
         }
 
-        return $this->json(['id' => $categorie->getId(),
-                            'nom' => $categorie->getNom(),
-                            'description' => $categorie->getDescription() ],
-                            201);
+        return $this->render('categorie/categorie.html.twig', [
+            'id' => $categorie->getId(),
+            'nom' => $categorie->getNom(),
+            'description' => $categorie->getDescription()
+        ]);
     }
 
-    #[Route('/categorie/{id}', methods: ['PUT'])]
-    public function update( Request $request, EntityManagerInterface $entityManager, int $id): JsonResponse
+    #[Route('/categorie/edit/{id}', name: 'categorie.edit')]
+    public function update( Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
-        $data = json_decode(json: $request->getContent(), associative: true);
-
+                
         $categorie = $entityManager->getRepository(categorie::class)->find($id);
-
+        
         if(!$categorie) {
             throw $this->createNotFoundException(
                 'No team found for id'.$id
             );
         }
 
-        $categorie->setNom(Nom: $data['nom'] ?? '');
-        $categorie->setDescription(Description: $data['description'] ?? '');
+        $form = $this->createForm(CategorieType::class, $categorie);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('all_categories');
+        }
 
-        $entityManager->flush();
-
-        return $this->json(['id' => $categorie->getId(),
-                            'nom' => $categorie->getNom(),
-                            'description' => $categorie->getDescription()],
-                            201);
+        return $this->render('categorie/edit.html.twig', [
+            'categorie' => $categorie,
+            'form' => $form
+        ]);
     }
 
-    #[Rotue('/categorie/{id}', methods: ['DELETE'])]
+    #[Route('/categorie/{id}', methods: ['DELETE'])]
     public function delete(EntityManagerInterface $entityManager, int $id): JsonResponse 
     {
         $categorie = entityManager->getRepository(team::class)->find($id);
