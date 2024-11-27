@@ -32,6 +32,10 @@ class Rappel
     #[ORM\Column]
     private ?bool $estFait = null;
 
+    #[ORM\ManyToOne(inversedBy: 'rappels')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $Categorie = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,6 +85,18 @@ class Rappel
     public function setEstFait(bool $estFait): static
     {
         $this->estFait = $estFait;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->Categorie;
+    }
+
+    public function setCategorie(?Categorie $Categorie): static
+    {
+        $this->Categorie = $Categorie;
 
         return $this;
     }
