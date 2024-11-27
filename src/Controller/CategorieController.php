@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CategorieController extends AbstractController
 {
     #[Route('/categorie', methods: ['POST'])]
-    public function createCategorie(Request  $request, EntityManagerInterface $entityManager): JsonResponse
+    public function createCategorie(Request  $request, EntityManagerInterface $entityManager): Response
     {
         $data = json_decode(json: $request->getContent(), associative: true);
 
@@ -25,31 +25,32 @@ class CategorieController extends AbstractController
         $entityManager->persist($categorie);
         $entityManager->flush();
 
-        return $this->json(['id' => $categorie->getId(),
-                            'nom' => $categorie->getNom(),
-                            'description' => $categorie->getDescription() ],
-                            201);
+        return $this->render('categorie/create/added.html.twig', []);
+        // return $this->json(['id' => $categorie->getId(),
+        //                     'nom' => $categorie->getNom(),
+        //                     'description' => $categorie->getDescription() ],
+        //                     201);
     }
 
-    #[Route('/categorie', methods: ['GET'])]
-    public function showAllCategorie(EntityManagerInterface $entityManager): JsonResponse 
+    #[Route('/categories', methods: ['GET'], name:'all_categories')]
+    public function showAllCategorie(EntityManagerInterface $entityManager): Response 
     {
         $categories = $entityManager->getRepository(categorie::class)->findAll();
 
         if(!$categories) {
             throw $this->createNotFoundException(
-                'No teams found'
+                'No categories found'
             );
         }
-
-        return $this->json(['teams' => array_map(callback:function($categorie): array {
-            return[
-                'id' => $categorie->getId(),
-                'nom' => $categorie->getNom(),
-                'description' => $categorie->getDescription()
-            ];
-        }, array: $categories),
-        201]) ;
+        return $this->render('categorie/categories.html.twig', ['categories' => $categories]);
+        // return $this->json(['categories' => array_map(callback:function($categorie): array {
+        //     return[
+        //         'id' => $categorie->getId(),
+        //         'nom' => $categorie->getNom(),
+        //         'description' => $categorie->getDescription()
+        //     ];
+        // }, array: $categories),
+        // 201]) ;
     }
 
     #[Route('/categorie/{id}', methods: ['GET'])]

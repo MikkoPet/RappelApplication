@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes les categories{% endblock %}
+
+{% block body %} 
+
+<h1>Catégories</h1>
+
+<button>+ Ajouter une catégorie</button>
+
+{% for categorie in categories %}
+<div>
+{{ categorie.name }}
+</div>
+{% endfor %}
+
+{% endblock %}
