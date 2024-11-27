@@ -105,7 +105,7 @@ class CategorieController extends AbstractController
         }
 
         try {
-            $entityManager->remove(object $categorie);
+            $entityManager->remove($categorie);
             $entityManager->flush();
 
             return $this->json(['message' => 'Successfully deleted category '.$categorie->getNom()], 200);
