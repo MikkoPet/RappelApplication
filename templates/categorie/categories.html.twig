@@ -6,12 +6,13 @@
 
 <h1>Catégories</h1>
 
-<button>+ Ajouter une catégorie</button>
-
+<a href="{{ path( 'categorie.add' ) }}">+ Ajouter une catégorie</a>
+<section>
 {% for categorie in categories %}
-<div>
-{{ categorie.name }}
-</div>
+<a href="{{path('show_categorie',{'id': categorie.id})}}">
+{{ categorie.nom }}
+</a>
 {% endfor %}
+</section>
 
 {% endblock %}
