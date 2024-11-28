@@ -5,6 +5,7 @@
 {% block body %} 
 
     <h1> {{ categorie.nom }} </h1> 
+    {% form_theme form 'tailwind_2_layout.html.twig' %}
     {{ form(form) }}
 
 {% endblock %}
