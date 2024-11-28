@@ -4,11 +4,13 @@
 
 {% block body %} 
 
-<h1> {{ nom }} </h1> 
+<div class="container mx-auto p-24 flex flex-col text-xl">
+
+<h1 class="mb-6 text-3xl font-bold text-gray-800"> {{ nom }} </h1> 
 <p> {{ description }} </p>
 
-<a href="{{path('categorie.edit',{'id': id })}}"> Modifier </a>
-<button> Supprimer </button>
+<a class="inline-block px-6 py-3 m-2 bg-blue-600 text-white font-medium leading-tight rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-300 ease-in-out" href="{{path('categorie.edit',{'id': id })}}"> Modifier </a>
+<a class="inline-block px-6 py-3 m-2 bg-blue-600 text-white font-medium leading-tight rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-300 ease-in-out"> Supprimer </a>
 
-</section>
+</div>
 {% endblock %}

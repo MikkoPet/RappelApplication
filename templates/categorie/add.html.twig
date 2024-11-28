@@ -1,10 +1,28 @@
 {% extends 'base.html.twig' %}
+{% form_theme form _self %}
 
-{% block title %} Ajouter une catégorie {% endblock %}
+{% block button_widget %}
+    <button class="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-300 ease-in-out">
+    Envoyer </button>
+{% endblock %}
+
+{% block title %} Créer une catégorie {% endblock %}
 
 {% block body %} 
 
-    <h1>  Ajouter une catégorie </h1> 
-    {{ form(form) }}
+<div class="container mx-auto p-24 flex flex-col text-xl">
+
+    <h1 class="mb-6 text-3xl font-bold text-gray-800"> Créer une catégorie </h1> 
+    {{ form_start(form) }}
+
+        {{ form_errors(form) }}
+        <div class="mb-3">
+            {{ form_widget(form.Nom, {'attr': {'placeholder' : 'Nom', 'class' : 'w-full px-4 py-2 mt-1 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition duration-200' }}) }}
+            {{ form_widget(form.Description, { 'attr': {'placeholder' : 'Description', 'class' : 'w-full px-4 py-2 mt-1 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition duration-200' }}) }}
+        </div>
+
+    {{ form_end(form) }}
+
+</div>
 
 {% endblock %}
