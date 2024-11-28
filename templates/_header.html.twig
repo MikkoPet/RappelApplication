@@ -1,0 +1,18 @@
+{% block header %}
+	<nav class="bg-slate-100  fixed w-full z-10 top-0 start-0">
+		<div class="h-20 flex items-center justify-between px-4">
+			<div class="w-1/4">
+				<img src="{{ asset('/assets/images/simplon.svg') }}" alt="logo Simplon">
+			</div>
+			<div>
+				<svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 17 14">
+					<path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+				</svg>
+			</div>
+			<div class="hidden">
+				<a href="{{ path('app_rappel')}}">Accueil</a>
+				<a href="{{ path('categorie.add')}}">Ajouter une catégorie</a>
+			</div>
+		</div>
+	</nav>
+{% endblock %}
