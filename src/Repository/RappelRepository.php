@@ -6,6 +6,8 @@ use App\Entity\Rappel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+use function Symfony\Component\Clock\now;
+
 /**
  * @extends ServiceEntityRepository<Rappel>
  */
@@ -14,6 +16,18 @@ class RappelRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Rappel::class);
+    }
+
+    public function findByDateToday(): array
+    {   
+        $today = (new \DateTime())->format('Y-m-d');
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.DateRappel like :val')
+            ->setParameter('val', "%$today%")
+            ->orderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     //    /**
