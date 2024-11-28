@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RappelController!{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des Rappel</h1>
+
+{% for rappel in rappels %}
+
+    <h2>{{ rappel.Titre }}</h2>
+    
+{% endfor %}
+
+</div>
+{% endblock %}

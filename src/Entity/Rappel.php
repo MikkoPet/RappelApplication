@@ -30,7 +30,7 @@ class Rappel
     private ?\DateTimeInterface $DateRappel = null;
 
     #[ORM\Column]
-    private ?bool $estFait = null;
+    private ?bool $estFait = false;
 
     #[ORM\ManyToOne(inversedBy: 'rappels')]
     #[ORM\JoinColumn(nullable: false)]

@@ -1,0 +1,9 @@
+{{ form_start(rappelForm)}}
+{{ form_row(rappelForm._token) }}
+{{ form_row(rappelForm.Titre) }}
+{{ form_row(rappelForm.Description) }}
+{{ form_row(rappelForm.DateRappel) }}
+{{ form_row(rappelForm.Categorie)}}
+ {{ form_row(rappelForm.save, { 'label': 'Ajouter un rappel' }) }}
+ {{ form_end(rappelForm, {render_rest: false})}}
+
