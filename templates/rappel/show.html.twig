@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rappel
+{% endblock %}
+
+{% block body %}
+	<h1>{{ rappel.Titre }}</h1>
+	<p>Description :</p>
+	{{ rappel.Description }}
+	<p>Date Rappel :</p>
+	{{ rappel.DateRappel| date('Y-m-d H:i:s') }}
+	<p>Fait :</p>
+	{% if rappel.EstFait %}
+		<input type="checkbox" checked>
+	{% else %}
+		<input type="checkbox">
+	{% endif %}
+
+	<a href="{{ path('app_rappel')}}">retour à la liste des rappels</a>
+
+
+{% endblock %}

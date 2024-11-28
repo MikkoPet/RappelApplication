@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un rappel
+{% endblock %}
+
+{% block body %}
+	<h1>Modification du rappel
+		{{ rappel.Titre }}
+	</h1>
+
+	{{ include('rappel/_form.html.twig')}}
+
+{% endblock %}
