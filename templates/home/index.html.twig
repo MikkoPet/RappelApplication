@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil des rappels
+{% endblock %}
+
+{% block body %}
+		<h1>Les rappels du jours</h1>
+
+		{% for rappel in rappels %}
+			<a href="{{ path('app_rappel_show', {'id': rappel.id})}}">{{ rappel.Titre }}</a>
+		{% endfor %}
+{% endblock %}
