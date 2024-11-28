@@ -11,21 +11,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class CategorieController extends AbstractController
 {
-    #[Route('/categorie_add', methods: ['POST', 'GET'], name: "categorie.add")]
+    #[Route('/categorie_add', name: "categorie.add")]
     public function createCategorie(Request  $request, EntityManagerInterface $entityManager): Response
     {
         $categorie = new Categorie();
 
         $form = $this->createForm(CategorieType::class, $categorie);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $entityManager->persist($categorie);
+            $entityManager->persist($form->getData());
             $entityManager->flush();
             return $this->redirectToRoute('categorie.all');
-        }
+
+        } 
 
         return $this->render('categorie/add.html.twig', [
             'form' => $form
@@ -91,7 +94,7 @@ class CategorieController extends AbstractController
     #[Route('/categorie/{id}', methods: ['DELETE'])]
     public function delete(EntityManagerInterface $entityManager, int $id): JsonResponse 
     {
-        $categorie = entityManager->getRepository(team::class)->find($id);
+        $categorie = $entityManager->getRepository(categorie::class)->find($id);
 
         if(!$categorie) {
             throw $this->createNotFoundException(
