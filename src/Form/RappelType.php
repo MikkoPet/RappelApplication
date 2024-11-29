@@ -21,16 +21,17 @@ class RappelType extends AbstractType
             ->add('DateRappel')
             ->add('estFait', checkboxType::class, [
                 'label' => 'Effectué',
+                'required' => false
             ])
             ->add('Categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => function (Categorie $categorie) {
-                    return "{$categorie->getNom()}";
+                    return "{$categorie->getNom()}";    
                 },
                 'multiple' => false,
                 'expanded' => false,
             ])
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class,)
         ;
     }
 
