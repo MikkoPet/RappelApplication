@@ -65,7 +65,7 @@ class RappelController extends AbstractController
 
         return $this->render('rappel/edit.html.twig', [
             'rappel' => $rappel,
-            'rappelForm' => $form,
+            'rappelForm' => $form
         ]);
     }
 

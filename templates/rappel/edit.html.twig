@@ -4,10 +4,12 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Modification du rappel
-		{{ rappel.Titre }}
-	</h1>
+	<div class="container mx-auto p-24 flex flex-col text-xl">
+		<h1 class="mb-6 text-3xl font-bold text-gray-800">
+			{{ rappel.Titre }}
+		</h1>
 
-	{{ include('rappel/_form.html.twig')}}
+		{{ include('rappel/_form.html.twig', )}}
 
+	</div>
 {% endblock %}
