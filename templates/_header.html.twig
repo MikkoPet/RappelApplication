@@ -1,5 +1,5 @@
 {% block header %}
-	<nav class="bg-slate-100  fixed w-full z-10 top-0 start-0">
+	<nav class="bg-slate-300  fixed w-full z-10 top-0 start-0">
 		<div class="h-20 flex items-center justify-between px-4">
 			<div class="w-1/4">
 				<img src="{{ asset('../assets/images/simplon.svg') }}" alt="logo Simplon">
@@ -14,16 +14,16 @@
 				<div class="absolute top-full left-full w-1/2 peer-checked/menu:left-0 transform delay-200 duration-500 md:text-center">
 					<ul class="font-medium flex flex-col p-4">
 						<li class="py-1">
-							<a class="block py-1 px-3 text-gray-900 bg-slate-100 opacity-75 rounded text-sm" href="{{ path('app_home')}}">Accueil</a>
+							<a class="block py-1 px-3 text-gray-900 bg-slate-300 opacity-75 rounded text-sm" href="{{ path('app_home')}}">Accueil</a>
 						</li>
 						<li class="py-1">
-							<a class="block py-1 px-3 text-gray-900 bg-slate-100 opacity-75 rounded text-sm" href="{{ path('app_rappel_new')}}">Ajouter un rappel</a>
+							<a class="block py-1 px-3 text-gray-900 bg-slate-300 opacity-75 rounded text-sm" href="{{ path('app_rappel_new')}}">Ajouter un rappel</a>
 						</li>
 						<li class="py-1">
-							<a class="block py-2 px-3 text-gray-900 bg-slate-100 opacity-75 rounded text-sm" href="{{ path('app_rappel')}}">Les rappels</a>
+							<a class="block py-2 px-3 text-gray-900 bg-slate-300 opacity-75 rounded text-sm" href="{{ path('app_rappel')}}">Les rappels</a>
 						</li>
 						<li class="py-1">
-							<a class="block py-2 px-3 text-gray-900 bg-slate-100 opacity-75 rounded text-sm" href="{{ path('categorie.add')}}">Les catégories</a>
+							<a class="block py-2 px-3 text-gray-900 bg-slate-300 opacity-75 rounded text-sm" href="{{ path('categorie.all')}}">Les catégories</a>
 						</li>
 					</ul>
 				</div>
@@ -40,7 +40,7 @@
 						<a href="{{ path('app_rappel')}}">Les rappels</a>
 					</li>
 					<li>
-						<a href="{{ path('categorie.add')}}">Les catégories</a>
+						<a href="{{ path('categorie.all')}}">Les catégories</a>
 					</li>
 				</ul>
 			</div>
